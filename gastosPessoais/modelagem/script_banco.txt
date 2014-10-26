@@ -1,0 +1,54 @@
+LOGIN: GASTOPESSOAL
+senha: gasto
+
+
+
+CREATE TABLE Endereco (
+  idEndereco INTEGER NOT NULL ,
+  logradouro VARCHAR2(100) NULL,
+  numero VARCHAR2(15) NULL,
+  complemento VARCHAR2(50) NULL,
+  bairro VARCHAR2(50) NULL,
+  cidade VARCHAR2(50) NULL,
+  estado VARCHAR2(2) NULL,
+  cep VARCHAR2(8) NULL,
+  PRIMARY KEY(idEndereco)
+);
+
+CREATE TABLE GastoPessoal (
+  idGastoPessoal INTEGER NOT NULL ,
+  Usuario_idUsuario INTEGER NOT NULL,
+  TipoGasto_idTipoGasto INTEGER NOT NULL,
+  valorGasto DOUBLE NULL,
+  dataGasto DATE NULL,
+  PRIMARY KEY(idGastoPessoal),
+  INDEX GastoPessoal_FKIndex1(TipoGasto_idTipoGasto),
+  INDEX GastoPessoal_FKIndex2(Usuario_idUsuario)
+);
+
+CREATE TABLE Genero (
+  idGenero INTEGER NOT NULL ,
+  nomeGenero VARCHAR2(50) NULL,
+  PRIMARY KEY(idGenero)
+);
+
+CREATE TABLE TipoGasto (
+  idTipoGasto INTEGER NOT NULL ,
+  Genero_idGenero INTEGER NOT NULL,
+  nomeGasto VARCHAR2(50) NULL,
+  prioridadeGasto INTEGER  NULL,
+  PRIMARY KEY(idTipoGasto),
+  INDEX TipoGasto_FKIndex1(Genero_idGenero)
+);
+
+CREATE TABLE Usuario (
+  idUsuario INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  Endereco_idEndereco INTEGER UNSIGNED NOT NULL,
+  nome VARCHAR(100) NULL,
+  login VARCHAR(20) NULL,
+  senha VARCHAR(10) NULL,
+  email VARCHAR(60) NULL,
+  PRIMARY KEY(idUsuario),
+  INDEX Usuario_FKIndex1(Endereco_idEndereco)
+);
+
